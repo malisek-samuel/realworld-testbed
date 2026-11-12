@@ -22,6 +22,8 @@ import commentRoutes from "./comment-routes";
 import notificationRoutes from "./notification-routes";
 import bankTransferRoutes from "./banktransfer-routes";
 import testDataRoutes from "./testdata-routes";
+import { mountOps } from "./ops-routes";
+import { mountFaults } from "./fault-routes";
 import { checkAuth0Jwt, verifyOktaToken, checkCognitoJwt, checkGoogleJwt } from "./helpers";
 import resolvers from "./graphql/resolvers";
 import { frontendPort, getBackendPort } from "../src/utils/portUtils";
@@ -51,6 +53,7 @@ if (global.__coverage__) {
 }
 
 app.use(cors(corsOption));
+mountOps(app); // testbed: /health, /metrics and request timing, before the logger
 app.use(logger("dev"));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -72,6 +75,7 @@ app.use(paginate.middleware(+process.env.PAGINATION_PAGE_SIZE!));
 if (process.env.NODE_ENV === "test" || process.env.NODE_ENV === "development") {
   app.use("/testData", testDataRoutes);
 }
+mountFaults(app); // testbed: /testing/faults, development and test only
 
 app.use(auth);
 
