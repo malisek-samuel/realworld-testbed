@@ -19,6 +19,9 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
   (`PATCH /admin/users/:userId`). A suspended user can't sign in, is signed out of open sessions,
   disappears from the people you can pay, and can't receive payments or requests. Admins can't be
   suspended.
+- Admin console at `/admin`, in the side menu of admins: statistics, and a table of users with
+  search, a status filter and pages, where an admin suspends or reactivates a user after
+  confirming. Other users who open the page are told they don't have access.
 
 ### Security
 

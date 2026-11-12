@@ -107,11 +107,20 @@ with its ticket.
   and `/users/search`), `backend/suspension.ts` (`rejectSuspendedReceiver` on payments and
   requests) and `backend/roles.ts` (`status` privileged like `role`). Upstream files touched:
   `backend/auth.ts`, `backend/user-routes.ts`, `backend/transaction-routes.ts`.
+- **Admin console page (RWT-4).** `src/containers/AdminContainer.tsx` at `/admin`, with
+  `src/components/AdminStats.tsx` and `AdminUsersTable.tsx`; it calls the API through
+  `src/utils/adminApi.ts` with plain `useEffect` state rather than an xstate machine (the shared
+  `dataMachine` loses the query when it reloads after an update). Selectors: `admin-...`
+  (`admin-user-row-<username>`, `admin-user-suspend-<username>`, `admin-confirm-submit`, …).
+  Upstream files touched: `src/containers/PrivateRoutesContainer.tsx` (the route),
+  `src/components/NavDrawer.tsx` (the menu item).
 
 Tests: API behavior through `src/__tests__/support/api.ts`, a real HTTP server with sessions
 (`api.as("Heath93")` gives a signed-in client). Component tests run in jsdom from
-`src/components/__tests__/`; `yarn types` doesn't reach them, as it doesn't reach most
-components (the tsconfig gets to components only through Cypress component tests).
+`src/components/__tests__/` and `src/containers/__tests__/` (API modules mocked with `vi.mock`);
+`yarn types` doesn't reach them, as it doesn't reach most components (the tsconfig gets to
+components only through Cypress component tests), so new frontend files get a separate `tsc`
+run with a throwaway tsconfig that extends the main one and includes them.
 
 ## Decisions
 

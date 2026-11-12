@@ -1,4 +1,4 @@
-// Testbed addition: the side menu's admin parts (RWT-1).
+// Testbed addition: the side menu's admin parts: the badge (RWT-1) and the Admin item (RWT-4).
 
 import React from "react";
 import { describe, expect, it } from "vitest";
@@ -46,5 +46,17 @@ describe("NavDrawer", () => {
     renderFor({ ...user, role: UserRole.user });
 
     expect(screen.queryByTestId("sidenav-admin-badge")).toBeNull();
+  });
+
+  it("shows the Admin item, linking to /admin, to an admin", () => {
+    renderFor({ ...user, role: UserRole.admin });
+
+    expect(screen.getByTestId("sidenav-admin")).toHaveAttribute("href", "/admin");
+  });
+
+  it("shows no Admin item to a user", () => {
+    renderFor({ ...user, role: UserRole.user });
+
+    expect(screen.queryByTestId("sidenav-admin")).toBeNull();
   });
 });
