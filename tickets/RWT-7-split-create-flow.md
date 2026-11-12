@@ -3,7 +3,7 @@
 |            |              |
 | ---------- | ------------ |
 | Epic       | Split a bill |
-| Status     | To do        |
+| Status     | Done         |
 | Depends on | RWT-6        |
 
 ## Why
@@ -28,12 +28,12 @@ Every control has a `data-test` attribute (`split-create-...`).
 
 ## Acceptance criteria
 
-- [ ] The Split button opens the form.
-- [ ] Total $100, two people, Include me, Equal: the preview shows $33.34 for the user and $33.33
+- [x] The Split button opens the form.
+- [x] Total $100, two people, Include me, Equal: the preview shows $33.34 for the user and $33.33
       for each person.
-- [ ] Custom amounts that don't add up keep Request disabled and show the difference.
-- [ ] Submitting a valid split opens its page with the same amounts as the preview.
-- [ ] Each person picked can be removed; nobody can be picked twice; the user can't pick
+- [x] Custom amounts that don't add up keep Request disabled and show the difference.
+- [x] Submitting a valid split opens its page with the same amounts as the preview.
+- [x] Each person picked can be removed; nobody can be picked twice; the user can't pick
       themselves.
 
 ## Out of scope

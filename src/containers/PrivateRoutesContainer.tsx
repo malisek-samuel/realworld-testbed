@@ -22,6 +22,7 @@ import { useActor } from "@xstate/react";
 import UserOnboardingContainer from "./UserOnboardingContainer";
 import AdminContainer from "./AdminContainer"; // testbed (RWT-4)
 import SplitDetailContainer from "./SplitDetailContainer"; // testbed (RWT-6)
+import SplitCreateContainer from "./SplitCreateContainer"; // testbed (RWT-7)
 
 export interface Props {
   isLoggedIn: boolean;
@@ -96,6 +97,10 @@ const PrivateRoutesContainer: React.FC<Props> = ({
         {/* testbed (RWT-4): the admin console; non-admins get a no-access message */}
         <PrivateRoute isLoggedIn={isLoggedIn} exact path="/admin">
           <AdminContainer authService={authService} snackbarService={snackbarService} />
+        </PrivateRoute>
+        {/* testbed (RWT-7): creating a split; before /splits/:splitId, which would match "new" */}
+        <PrivateRoute isLoggedIn={isLoggedIn} exact path="/splits/new">
+          <SplitCreateContainer authService={authService} snackbarService={snackbarService} />
         </PrivateRoute>
         {/* testbed (RWT-6): a split's page, for its creator and participants */}
         <PrivateRoute isLoggedIn={isLoggedIn} exact path="/splits/:splitId">

@@ -30,6 +30,10 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - Split page at `/splits/:splitId`: the total, the creator's share, a progress bar of what has been
   collected, and each person's request marked Paid, Pending or Declined. A request that belongs to
   a split links to it from its transaction page.
+- Split a bill from the app: a Split button in the top bar opens a form to pick up to 10 people,
+  enter the total and choose an equal or custom split, with or without your own share. It
+  previews every share exactly as it will be requested, shows how much is left to assign, and
+  opens the split's page once the requests are sent.
 
 ### Security
 

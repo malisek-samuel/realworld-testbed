@@ -24,6 +24,7 @@ import {
   Menu as MenuIcon,
   Notifications as NotificationsIcon,
   AttachMoney as AttachMoneyIcon,
+  CallSplit as CallSplitIcon,
 } from "@mui/icons-material";
 import { Link as RouterLink, useLocation } from "react-router-dom";
 
@@ -160,6 +161,19 @@ const NavBar: React.FC<NavBarProps> = ({ drawerOpen, toggleDrawer, notifications
             )}
           </Link>
         </Typography>
+        {/* testbed (RWT-7): split a bill; the cast because @types/react-router-dom brings its own
+            @types/react */}
+        <Button
+          className={classes.newTransactionButton}
+          variant="contained"
+          color="inherit"
+          component={RouterLink as any}
+          to="/splits/new"
+          sx={{ mr: 1 }}
+          data-test="nav-top-split"
+        >
+          <CallSplitIcon /> Split
+        </Button>
         <Button
           className={classes.newTransactionButton}
           variant="contained"
