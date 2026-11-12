@@ -27,6 +27,9 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
   add up to the total; you can include your own share or not. Each person gets an ordinary
   request. `GET /splits/:splitId` shows how much has been collected, is outstanding or was
   declined, to the creator and the participants.
+- Split page at `/splits/:splitId`: the total, the creator's share, a progress bar of what has been
+  collected, and each person's request marked Paid, Pending or Declined. A request that belongs to
+  a split links to it from its transaction page.
 
 ### Security
 

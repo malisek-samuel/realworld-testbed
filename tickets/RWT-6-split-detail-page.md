@@ -3,7 +3,7 @@
 |            |              |
 | ---------- | ------------ |
 | Epic       | Split a bill |
-| Status     | To do        |
+| Status     | Done         |
 | Depends on | RWT-5        |
 
 ## Why
@@ -18,7 +18,7 @@ missing. A participant wants to see what the request belongs to.
 - Then one row per participant: avatar, name, amount and status: **Paid**, **Pending** or
   **Declined**. Each row links to its request.
 - A request that belongs to a split shows "Part of a split" with a link to the split on its
-  transaction page.
+  transaction page, to the two people in the request (others couldn't open the split).
 - A split the user may not see shows "You don't have access to this split"; an unknown one shows
   "Split not found".
 
@@ -26,11 +26,12 @@ Every element a test needs has a `data-test` attribute (`split-...`).
 
 ## Acceptance criteria
 
-- [ ] The page shows the amounts from `GET /splits/:splitId`, formatted as dollars.
-- [ ] After a participant accepts, their row says Paid and the progress bar grows.
-- [ ] A declined request shows Declined and doesn't count as collected.
-- [ ] The transaction page of a split request links to the split; other transactions don't.
-- [ ] A user outside the split sees the no-access message; a made-up ID shows "Split not found".
+- [x] The page shows the amounts from `GET /splits/:splitId`, formatted as dollars.
+- [x] After a participant accepts, their row says Paid and the progress bar grows.
+- [x] A declined request shows Declined and doesn't count as collected.
+- [x] The transaction page of a split request links to the split for its two people; other
+      transactions, and other viewers, get no link.
+- [x] A user outside the split sees the no-access message; a made-up ID shows "Split not found".
 
 ## Out of scope
 

@@ -1,6 +1,7 @@
 import React from "react";
 import { styled } from "@mui/material/styles";
-import { Button, Typography, Grid, Avatar, Paper, IconButton } from "@mui/material";
+import { Button, Typography, Grid, Avatar, Paper, IconButton, Link } from "@mui/material";
+import { Link as RouterLink } from "react-router-dom";
 import { AvatarGroup } from "@mui/material";
 import { ThumbUpAltOutlined as LikeIcon, CommentRounded as CommentIcon } from "@mui/icons-material";
 import { TransactionResponseItem, TransactionRequestStatus, User } from "../models";
@@ -156,6 +157,19 @@ const TransactionDetail: React.FC<TransactionProps> = ({
                 {transaction.description}
               </Typography>
             </Grid>
+            {/* testbed (RWT-6): a split's request links to the split, for the two people in it */}
+            {transaction.splitId &&
+              [transaction.senderId, transaction.receiverId].includes(currentUser?.id) && (
+                <Grid item>
+                  <Typography variant="body2" data-test="transaction-split-link">
+                    Part of a split ·{" "}
+                    {/* cast: @types/react-router-dom brings its own @types/react */}
+                    <Link component={RouterLink as any} to={`/splits/${transaction.splitId}`}>
+                      View split
+                    </Link>
+                  </Typography>
+                </Grid>
+              )}
           </Grid>
         </Grid>
         <Grid item>
