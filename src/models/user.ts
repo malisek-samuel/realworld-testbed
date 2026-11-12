@@ -4,6 +4,11 @@ export enum DefaultPrivacyLevel {
   contacts = "contacts",
 }
 
+export enum UserRole {
+  user = "user",
+  admin = "admin",
+}
+
 export interface User {
   id: string;
   uuid: string;
@@ -16,6 +21,7 @@ export interface User {
   balance: number;
   avatar: string;
   defaultPrivacyLevel: DefaultPrivacyLevel;
+  role?: UserRole; // testbed (RWT-1): absent on records from before roles, which count as "user"
   createdAt: Date;
   modifiedAt: Date;
 }

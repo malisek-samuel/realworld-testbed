@@ -20,6 +20,7 @@ import {
   userFieldsValidator,
   isUserValidator,
 } from "./validators";
+import { noPrivilegedFields } from "./roles"; // testbed (RWT-1)
 const router = express.Router();
 
 // Routes
@@ -38,14 +39,19 @@ router.get("/search", ensureAuthenticated, validateMiddleware([searchValidation]
   res.status(200).json({ results: users });
 });
 
-router.post("/", userFieldsValidator, validateMiddleware(isUserValidator), (req, res) => {
-  const userDetails: User = req.body;
+router.post(
+  "/",
+  userFieldsValidator,
+  validateMiddleware([...isUserValidator, ...noPrivilegedFields]),
+  (req, res) => {
+    const userDetails: User = req.body;
 
-  const user = createUser(userDetails);
+    const user = createUser(userDetails);
 
-  res.status(201);
-  res.json({ user: user });
-});
+    res.status(201);
+    res.json({ user: user });
+  }
+);
 
 router.get(
   "/:userId",
@@ -82,7 +88,7 @@ router.patch(
   "/:userId",
   ensureAuthenticated,
   userFieldsValidator,
-  validateMiddleware([shortIdValidation("userId"), ...isUserValidator]),
+  validateMiddleware([shortIdValidation("userId"), ...isUserValidator, ...noPrivilegedFields]),
   (req, res) => {
     const { userId } = req.params;
 

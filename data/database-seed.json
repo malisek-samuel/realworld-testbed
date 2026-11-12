@@ -11,6 +11,7 @@
       "phoneNumber": "398-225-9900",
       "avatar": "https://api.dicebear.com/9.x/pixel-art/svg?seed=Ted",
       "defaultPrivacyLevel": "public",
+      "role": "user",
       "balance": 150953,
       "createdAt": "2023-03-09T22:26:40.101Z",
       "modifiedAt": "2024-03-07T10:07:57.580Z"
@@ -26,6 +27,7 @@
       "phoneNumber": "410-786-2112",
       "avatar": "https://api.dicebear.com/9.x/pixel-art/svg?seed=Kristian",
       "defaultPrivacyLevel": "private",
+      "role": "user",
       "balance": 93026,
       "createdAt": "2023-04-23T13:52:10.979Z",
       "modifiedAt": "2024-03-07T09:07:46.709Z"
@@ -41,6 +43,7 @@
       "phoneNumber": "887-309-1593",
       "avatar": "https://api.dicebear.com/9.x/pixel-art/svg?seed=Darrel",
       "defaultPrivacyLevel": "contacts",
+      "role": "user",
       "balance": 158880,
       "createdAt": "2023-05-21T05:01:54.594Z",
       "modifiedAt": "2024-03-07T14:11:52.161Z"
@@ -56,6 +59,7 @@
       "phoneNumber": "467-316-5352",
       "avatar": "https://api.dicebear.com/9.x/pixel-art/svg?seed=Ruthie",
       "defaultPrivacyLevel": "private",
+      "role": "user",
       "balance": 117683,
       "createdAt": "2024-02-08T11:33:03.159Z",
       "modifiedAt": "2024-03-07T16:44:43.874Z"
@@ -71,9 +75,26 @@
       "phoneNumber": "990-583-8419",
       "avatar": "https://api.dicebear.com/9.x/pixel-art/svg?seed=Lia",
       "defaultPrivacyLevel": "public",
+      "role": "user",
       "balance": 49474,
       "createdAt": "2023-12-07T04:39:38.383Z",
       "modifiedAt": "2024-03-07T00:07:36.510Z"
+    },
+    {
+      "id": "lMxuSPGAn",
+      "uuid": "8a30b41d-234a-4bab-82cb-2c5ffd55a07d",
+      "firstName": "Avery",
+      "lastName": "Admin",
+      "username": "admin",
+      "password": "$2a$10$OvsZQ9zuOgexHvnLrowXoOv7mTo0hP.X8AsyiKAVvoEe3qY7vsaVC",
+      "email": "admin@example.com",
+      "phoneNumber": "555-010-0100",
+      "avatar": "https://api.dicebear.com/9.x/pixel-art/svg?seed=admin",
+      "defaultPrivacyLevel": "private",
+      "role": "admin",
+      "balance": 0,
+      "createdAt": "2023-01-02T09:00:00.000Z",
+      "modifiedAt": "2023-01-02T09:00:00.000Z"
     }
   ],
   "contacts": [
@@ -253,6 +274,17 @@
       "isDeleted": false,
       "createdAt": "2024-01-26T14:01:01.815Z",
       "modifiedAt": "2024-03-07T08:44:31.174Z"
+    },
+    {
+      "id": "P0oHe-4U95",
+      "uuid": "4c8bec42-20da-444d-b031-b1401743c4e5",
+      "userId": "lMxuSPGAn",
+      "bankName": "Operations Bank",
+      "accountNumber": "1000000001",
+      "routingNumber": "110000000",
+      "isDeleted": false,
+      "createdAt": "2023-01-02T09:00:00.000Z",
+      "modifiedAt": "2023-01-02T09:00:00.000Z"
     }
   ],
   "transactions": [

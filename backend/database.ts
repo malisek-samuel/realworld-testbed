@@ -46,6 +46,7 @@ import {
   NotificationResponseItem,
   TransactionQueryPayload,
   DefaultPrivacyLevel,
+  UserRole,
 } from "../src/models";
 import Fuse from "fuse.js";
 import {
@@ -65,6 +66,7 @@ import {
   isCommentNotification,
 } from "../src/utils/transactionUtils";
 import { DbSchema } from "../src/models/db-schema";
+import { isAdmin } from "../src/utils/roleUtils"; // testbed (RWT-1)
 
 export type TDatabase = {
   users: User[];
@@ -189,6 +191,7 @@ export const createUser = (userDetails: Partial<User>): User => {
     balance: Number(userDetails.balance!) || 0,
     avatar: userDetails.avatar!,
     defaultPrivacyLevel: userDetails.defaultPrivacyLevel!,
+    role: UserRole.user, // testbed (RWT-1)
     createdAt: new Date(),
     modifiedAt: new Date(),
   };
@@ -826,7 +829,8 @@ export const formatNotificationsForApiResponse = (
 // dev/test private methods
 /* istanbul ignore next */
 export const getRandomUser = () => {
-  const users = getAllUsers();
+  // testbed (RWT-1): a random customer; the seed admin has no contacts or transactions
+  const users = getAllUsers().filter((user: User) => !isAdmin(user));
   return sample(users)!;
 };
 

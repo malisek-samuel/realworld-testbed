@@ -3,7 +3,7 @@
 |            |               |
 | ---------- | ------------- |
 | Epic       | Admin console |
-| Status     | To do         |
+| Status     | Done          |
 | Depends on | —             |
 
 ## Why
@@ -24,11 +24,11 @@ staff, and that must be something users can't grant themselves.
 
 ## Acceptance criteria
 
-- [ ] Signing in as `admin` / `admin` succeeds and the returned user has `"role": "admin"`.
-- [ ] Every other seed user, and every newly signed-up user, has `"role": "user"`.
-- [ ] `POST /users` with `"role": "admin"` answers 422 and creates no user.
-- [ ] `PATCH /users/:userId` with `"role": "admin"` answers 422 and the role doesn't change.
-- [ ] The side menu of `admin` shows the Admin badge (`data-test="sidenav-admin-badge"`); other
+- [x] Signing in as `admin` / `admin` succeeds and the returned user has `"role": "admin"`.
+- [x] Every other seed user, and every newly signed-up user, has `"role": "user"`.
+- [x] `POST /users` with `"role": "admin"` answers 422 and creates no user.
+- [x] `PATCH /users/:userId` with `"role": "admin"` answers 422 and the role doesn't change.
+- [x] The side menu of `admin` shows the Admin badge (`data-test="sidenav-admin-badge"`); other
       users' side menus don't.
 
 ## Out of scope

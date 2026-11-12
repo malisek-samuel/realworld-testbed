@@ -16,6 +16,8 @@ jobs:
           node-version: 22
           cache: yarn
       - run: yarn install --frozen-lockfile
+      # src/aws-exports.js is generated and git-ignored; backend/helpers.ts imports it
+      - run: yarn predev:cognito:ci
       - run: yarn types
       - run: yarn test:unit:ci
 

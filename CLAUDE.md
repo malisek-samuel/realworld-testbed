@@ -17,7 +17,7 @@ export NVM_DIR="$HOME/.nvm"; . "$NVM_DIR/nvm.sh"; nvm use 22
 yarn dev               # development: frontend :3000 (Vite), API :3001, reseeds, restarts the API on backend edits
 yarn build:testbed     # build the frontend into build/
 yarn start:testbed     # as the test image runs it: reseeds, serves build/ on :3000, API on :3001 in NODE_ENV=test
-yarn test:unit:ci      # Vitest, ~10 s
+yarn test:unit:ci      # Vitest, ~10 s (needs src/aws-exports.js: `yarn predev:cognito:ci` once)
 yarn types             # tsc --noEmit
 docker build -t realworld-testbed . && docker run --rm -p 3000:3000 -p 3001:3001 realworld-testbed
 ```
@@ -77,6 +77,28 @@ curl -X PUT localhost:3001/testing/faults -H 'Content-Type: application/json' -d
 curl localhost:3001/health
 curl -X DELETE localhost:3001/testing/faults
 ```
+
+## Product features
+
+Features built through the tickets in `tickets/`. Unlike the testbed additions they change the
+product, so they touch upstream files where the feature lives; each such edit is marked `testbed`
+with its ticket.
+
+### Admin console (RWT-1 to RWT-4, unreleased)
+
+- **Roles (RWT-1).** `User.role` is `user` or `admin` (`src/models/user.ts`; a record without
+  one counts as `user`); `isAdmin` in `src/utils/roleUtils.ts` serves the API and the frontend.
+  `backend/roles.ts` makes sign-up and profile updates reject `role` with 422. The admin,
+  `admin` / `admin` (ID `lMxuSPGAn`, with a bank account so onboarding doesn't open), was added to
+  `data/database-seed.json` by hand: regenerating the seed (`yarn db:seed`) would drop it.
+  `getRandomUser`, the test helper, skips admins: the older tests expect a user with contacts.
+  Upstream files touched: `backend/user-routes.ts`, `backend/database.ts` (`createUser`),
+  `scripts/seedDataUtils.ts`, `src/components/NavDrawer.tsx` (the badge).
+
+Tests: API behavior through `src/__tests__/support/api.ts`, a real HTTP server with sessions
+(`api.as("Heath93")` gives a signed-in client). Component tests run in jsdom from
+`src/components/__tests__/`; `yarn types` doesn't reach them, as it doesn't reach most
+components (the tsconfig gets to components only through Cypress component tests).
 
 ## Decisions
 
