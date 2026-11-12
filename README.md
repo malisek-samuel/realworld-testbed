@@ -1,3 +1,24 @@
+# realworld-testbed
+
+The system under test for **[qa-showcase](https://github.com/malisek-samuel/qa-showcase)**, a video
+series on QA test types: API, E2E, UI, load and stress, long-run and AI-agent changelog testing.
+
+It is Cypress's [Real World App](https://github.com/cypress-io/cypress-realworld-app) (MIT) with
+testability additions — `/health`, Prometheus `/metrics` and fault switches — released as
+versioned test images. What each release changed is in [CHANGELOG.md](CHANGELOG.md).
+
+```bash
+docker run --rm -p 3000:3000 -p 3001:3001 ghcr.io/malisek-samuel/realworld-testbed:1.0.0
+# or, with Node 22 and Yarn 1: yarn install && yarn build:testbed && yarn start:testbed
+```
+
+Then open http://localhost:3000 and sign in as `Heath93` / `s3cret`. The image runs in test
+mode (seed data, fault switches): use it locally or in CI, never as a public deployment.
+
+Everything below is the upstream README.
+
+---
+
 <p align="center">
   <!-- We use two SVGs here so that this displays correctly
     on Github. This might not look right in other Markdown previewers. -->

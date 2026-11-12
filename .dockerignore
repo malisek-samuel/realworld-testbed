@@ -1,0 +1,11 @@
+.git
+.github
+.claude
+node_modules
+build
+coverage
+.nyc_output
+cypress/videos
+cypress/screenshots
+src/aws-exports.js
+aws-exports-es5.js

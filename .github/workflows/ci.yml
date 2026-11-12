@@ -1,0 +1,43 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    env:
+      CYPRESS_INSTALL_BINARY: "0"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: yarn
+      - run: yarn install --frozen-lockfile
+      - run: yarn types
+      - run: yarn test:unit:ci
+
+  image:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: docker/setup-buildx-action@v3
+      - name: Build the test image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: false
+          load: true
+          tags: realworld-testbed:ci
+      - name: Start it and wait for /health
+        run: |
+          docker run -d --name testbed -p 3000:3000 -p 3001:3001 realworld-testbed:ci
+          for i in $(seq 1 60); do
+            if curl -fsS http://localhost:3001/health; then exit 0; fi
+            sleep 2
+          done
+          docker logs testbed
+          exit 1
