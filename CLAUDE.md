@@ -34,7 +34,7 @@ Seed users: any `username` in `data/database-seed.json`, password `s3cret`. The 
 
 **Planted bugs** are never named anywhere the agents can read — not in a commit message, the changelog, a code comment or a file name. The answer key stays outside both repositories (local file or private gist) until its episode is published.
 
-`.github/workflows/ci.yml` runs `yarn types`, the unit tests and a build-and-start of the image on every push to `main` and every PR. The four upstream workflows (Cypress Cloud recording, issue triage, the flake-demo branch) were removed: they need secrets and branches this repo doesn't have.
+`.github/workflows/ci.yml` runs `yarn types`, the unit tests and a build-and-start of the image on every PR and by hand (Actions → CI → Run workflow) — not on pushes to `main`. The four upstream workflows (Cypress Cloud recording, issue triage, the flake-demo branch) were removed: they need secrets and branches this repo doesn't have.
 
 ## Testbed additions
 
@@ -84,6 +84,7 @@ curl -X DELETE localhost:3001/testing/faults
 - **2026-11-12** — Playwright, not Cypress, for the series' browser tests; the upstream Cypress suites stay as they are.
 - **2026-11-12** — fault switches only in `development` / `test`; `/health` reports them but doesn't fail on them; `prom-client` pinned exactly. The image runs in `test` mode, so it is for local runs and CI only.
 - **2026-11-12** — load, stress and soak tests run locally (or on a machine the user owns), never against a hosted demo.
+- **2026-11-12** — CI doesn't run on pushes to `main`, only on PRs and by hand (the owner's call).
 - **Open** — the image and both workflows haven't run yet: Docker isn't installed on the workstation, and the GitHub repository doesn't exist yet. The commands the image runs (`build:testbed`, `start:testbed`) were checked natively.
 
 ## Conventions
