@@ -3,7 +3,12 @@
 
 import { afterAll, beforeAll, beforeEach, describe, expect, it } from "vitest";
 import userRoutes from "../../backend/user-routes";
-import { getAllUsers, getUserByUsername, seedDatabase } from "../../backend/database";
+import {
+  getAllUsers,
+  getRandomUser,
+  getUserByUsername,
+  seedDatabase,
+} from "../../backend/database";
 import { Api, startApi } from "./support/api";
 
 let api: Api;
@@ -44,6 +49,15 @@ describe("user roles", () => {
 
     expect(others).toHaveLength(5);
     for (const user of others) expect(user.role).toBe("user");
+  });
+
+  it("leaves the admin out of the random seed user the older tests pick", () => {
+    // contacts.test.ts and bankaccounts.test.ts expect a random user with contacts and accounts,
+    // which the admin doesn't have
+    const picked = new Set(Array.from({ length: 200 }, () => getRandomUser().username));
+
+    expect(picked.has("admin")).toBe(false);
+    expect(picked.size).toBe(5);
   });
 
   it("gives a new account the user role", async () => {

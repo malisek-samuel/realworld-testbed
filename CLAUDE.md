@@ -91,6 +91,7 @@ with its ticket.
   `backend/roles.ts` makes sign-up and profile updates reject `role` with 422. The admin,
   `admin` / `admin` (ID `lMxuSPGAn`, with a bank account so onboarding doesn't open), was added to
   `data/database-seed.json` by hand: regenerating the seed (`yarn db:seed`) would drop it.
+  `getRandomUser`, the test helper, skips admins: the older tests expect a user with contacts.
   Upstream files touched: `backend/user-routes.ts`, `backend/database.ts` (`createUser`),
   `scripts/seedDataUtils.ts`, `src/components/NavDrawer.tsx` (the badge).
 
