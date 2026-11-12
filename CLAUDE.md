@@ -17,7 +17,7 @@ export NVM_DIR="$HOME/.nvm"; . "$NVM_DIR/nvm.sh"; nvm use 22
 yarn dev               # development: frontend :3000 (Vite), API :3001, reseeds, restarts the API on backend edits
 yarn build:testbed     # build the frontend into build/
 yarn start:testbed     # as the test image runs it: reseeds, serves build/ on :3000, API on :3001 in NODE_ENV=test
-yarn test:unit:ci      # Vitest, ~10 s
+yarn test:unit:ci      # Vitest, ~10 s (needs src/aws-exports.js: `yarn predev:cognito:ci` once)
 yarn types             # tsc --noEmit
 docker build -t realworld-testbed . && docker run --rm -p 3000:3000 -p 3001:3001 realworld-testbed
 ```
