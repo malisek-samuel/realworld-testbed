@@ -38,7 +38,7 @@ Seed users: any `username` in `data/database-seed.json`, password `s3cret`. The 
 
 ## Testbed additions
 
-Everything here is ours; the rest is upstream. Upstream files carry only these edits: `backend/app.ts` (two imports and two mount lines, marked "testbed"), `backend/database.ts` (`databaseFile` exported), `package.json` (`prom-client` 15.1.3 exact; the `build:testbed` / `start:testbed` scripts), `yarn.lock`, a header on `README.md`. Ours: `backend/ops-routes.ts`, `backend/fault-routes.ts`, `src/__tests__/ops.test.ts`, `Dockerfile`, `.dockerignore`, `.github/workflows/`, `CHANGELOG.md`, this file.
+Everything here is ours; the rest is upstream. Upstream files carry only these edits: `backend/app.ts` (two imports and two mount lines, marked "testbed"), `backend/database.ts` (`databaseFile` exported), `package.json` (`prom-client` 15.1.3 exact; the `build:testbed` / `start:testbed` scripts), `yarn.lock`, a header on `README.md`. Ours: `backend/ops-routes.ts`, `backend/fault-routes.ts`, `src/__tests__/ops.test.ts`, `Dockerfile`, `.dockerignore`, `.github/workflows/`, `CHANGELOG.md`, `tickets/`, this file.
 
 ### Health, metrics and fault switches (v1.0.0, 2026-11-12)
 
@@ -92,4 +92,5 @@ curl -X DELETE localhost:3001/testing/faults
 - Upstream style: one Express router per file in `backend/`, data access through `backend/database.ts`, Prettier `printWidth` 100, `// @vitest-environment node` for backend tests.
 - Our additions live in our own files, each starting with a "Testbed addition" comment; upstream files get the smallest diff that works.
 - A new test counts only after it was seen to fail on the broken feature.
+- Work goes through tickets and pull requests, as in a team: a ticket in `tickets/` (`RWT-n`, see its README), a branch `feature/RWT-n-short-name` from `main`, a PR that says what it does and how it was tested, CI green, merged with a merge commit (`gh pr merge --merge --delete-branch`). The PR adds its change under `## [Unreleased]` in `CHANGELOG.md` and sets its ticket to Done. `gh` is in `~/.local/bin`.
 - Commits: `git -c user.name=malisek-samuel -c user.email=204904171+malisek-samuel@users.noreply.github.com commit …` (no global git identity on the workstation). Commit and push only when asked.
