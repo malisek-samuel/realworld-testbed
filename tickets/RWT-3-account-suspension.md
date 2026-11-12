@@ -3,7 +3,7 @@
 |            |               |
 | ---------- | ------------- |
 | Epic       | Admin console |
-| Status     | To do         |
+| Status     | Done          |
 | Depends on | RWT-2         |
 
 ## Why
@@ -29,14 +29,14 @@ at once, and undo that later.
 
 ## Acceptance criteria
 
-- [ ] Suspending a seed user answers 200 with `"status": "suspended"`.
-- [ ] That user's sign-in answers 401, and a session opened before the suspension answers 401.
-- [ ] They're missing from `GET /users` and `GET /users/search` for other users.
-- [ ] A payment to them answers 422 and neither balance changes.
-- [ ] After reactivation they can sign in, appear in the lists and receive payments again.
-- [ ] Suspending an admin, including yourself, answers 422 and changes nothing.
-- [ ] An unknown user ID answers 404; a status other than `active` or `suspended` answers 422.
-- [ ] `GET /admin/users?status=suspended` lists only suspended users; `GET /admin/stats` counts
+- [x] Suspending a seed user answers 200 with `"status": "suspended"`.
+- [x] That user's sign-in answers 401, and a session opened before the suspension answers 401.
+- [x] They're missing from `GET /users` and `GET /users/search` for other users.
+- [x] A payment to them answers 422 and neither balance changes.
+- [x] After reactivation they can sign in, appear in the lists and receive payments again.
+- [x] Suspending an admin, including yourself, answers 422 and changes nothing.
+- [x] An unknown user ID answers 404; a status other than `active` or `suspended` answers 422.
+- [x] `GET /admin/users?status=suspended` lists only suspended users; `GET /admin/stats` counts
       them.
 
 ## Out of scope

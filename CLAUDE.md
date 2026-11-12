@@ -100,6 +100,13 @@ with its ticket.
   (`src/models/admin.ts`): no password hash, plus `transactionCount`. `limit=0` is 422, not the
   division by zero `/transactions` would do. Upstream file touched: `backend/app.ts` (import and
   mount line).
+- **Suspension (RWT-3).** `User.status` is `active` or `suspended` (absent counts as active;
+  `isSuspended` in `src/utils/roleUtils.ts`). `PATCH /admin/users/:userId` accepts `{status}` and
+  nothing else. Enforced in four places: `backend/auth.ts` (sign-in refused; `deserializeUser`
+  returns false, which ends open sessions), `backend/user-routes.ts` (left out of `GET /users`
+  and `/users/search`), `backend/suspension.ts` (`rejectSuspendedReceiver` on payments and
+  requests) and `backend/roles.ts` (`status` privileged like `role`). Upstream files touched:
+  `backend/auth.ts`, `backend/user-routes.ts`, `backend/transaction-routes.ts`.
 
 Tests: API behavior through `src/__tests__/support/api.ts`, a real HTTP server with sessions
 (`api.as("Heath93")` gives a signed-in client). Component tests run in jsdom from

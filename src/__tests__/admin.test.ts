@@ -68,6 +68,7 @@ describe("GET /admin/users", () => {
           "lastName",
           "phoneNumber",
           "role",
+          "status",
           "transactionCount",
           "username",
         ].sort()
@@ -135,6 +136,7 @@ describe("GET /admin/stats", () => {
     expect(res.body.users).toEqual({
       total: users.length,
       admins: users.filter((u) => u.role === "admin").length,
+      suspended: users.filter((u) => u.status === "suspended").length,
     });
     expect(res.body.transactions).toEqual({
       total: transactions.length,

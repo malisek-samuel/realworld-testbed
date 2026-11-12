@@ -21,12 +21,15 @@ import {
   isUserValidator,
 } from "./validators";
 import { noPrivilegedFields } from "./roles"; // testbed (RWT-1)
+import { isSuspended } from "../src/utils/roleUtils"; // testbed (RWT-3)
 const router = express.Router();
 
 // Routes
 router.get("/", ensureAuthenticated, (req, res) => {
   /* istanbul ignore next */
-  const users = removeUserFromResults(req.user?.id!, getAllUsers());
+  const users = removeUserFromResults(req.user?.id!, getAllUsers()).filter(
+    (user) => !isSuspended(user) // testbed (RWT-3)
+  );
   res.status(200).json({ results: users });
 });
 
@@ -34,7 +37,9 @@ router.get("/search", ensureAuthenticated, validateMiddleware([searchValidation]
   const { q } = req.query;
 
   /* istanbul ignore next */
-  const users = removeUserFromResults(req.user?.id!, searchUsers(q as string));
+  const users = removeUserFromResults(req.user?.id!, searchUsers(q as string)).filter(
+    (user) => !isSuspended(user) // testbed (RWT-3)
+  );
 
   res.status(200).json({ results: users });
 });

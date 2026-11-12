@@ -3,6 +3,7 @@ import passport from "passport";
 import express, { Request, Response } from "express";
 import { User } from "../src/models/user";
 import { getUserBy, getUserById } from "./database";
+import { isSuspended } from "../src/utils/roleUtils"; // testbed (RWT-3)
 
 const LocalStrategy = require("passport-local").Strategy;
 const router = express.Router();
@@ -22,6 +23,11 @@ passport.use(
       return done(null, false, { message: failureMessage });
     }
 
+    // testbed (RWT-3): a suspended account can't sign in
+    if (isSuspended(user)) {
+      return done(null, false, { message: failureMessage });
+    }
+
     return done(null, user);
   })
 );
@@ -32,7 +38,8 @@ passport.serializeUser(function (user: User, done) {
 
 passport.deserializeUser(function (id: string, done) {
   const user = getUserById(id);
-  done(null, user);
+  // testbed (RWT-3): false ends the session of an account suspended since it signed in
+  done(null, isSuspended(user) ? false : user);
 });
 
 // authentication routes

@@ -15,10 +15,15 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - Admin API, for admins only: `GET /admin/users` lists every user with their transaction count,
   newest first, with search and pages; `GET /admin/stats` counts users, transactions and pending
   requests, and adds up the volume of completed transactions.
+- Account suspension: an admin can suspend a user and reactivate them
+  (`PATCH /admin/users/:userId`). A suspended user can't sign in, is signed out of open sessions,
+  disappears from the people you can pay, and can't receive payments or requests. Admins can't be
+  suspended.
 
 ### Security
 
-- Sign-up and profile updates reject a `role`, so users can't make themselves admins.
+- Sign-up and profile updates reject a `role` or a `status`, so users can't make themselves admins
+  or lift a suspension.
 
 ## [1.0.0] - 2026-11-12
 

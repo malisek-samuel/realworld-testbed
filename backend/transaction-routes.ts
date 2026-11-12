@@ -22,6 +22,7 @@ import {
   isTransactionPublicQSValidator,
 } from "./validators";
 import { getPaginatedItems } from "../src/utils/transactionUtils";
+import { rejectSuspendedReceiver } from "./suspension"; // testbed (RWT-3)
 const router = express.Router();
 
 // Routes
@@ -138,6 +139,7 @@ router.post(
   "/",
   ensureAuthenticated,
   validateMiddleware(isTransactionPayloadValidator),
+  rejectSuspendedReceiver, // testbed (RWT-3)
   (req, res) => {
     const transactionPayload = req.body;
     const transactionType = transactionPayload.transactionType;
