@@ -12,6 +12,9 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 - User roles. An account is a user or an admin. The seed data has one admin, `admin` / `admin`,
   whose side menu shows an Admin badge.
+- Admin API, for admins only: `GET /admin/users` lists every user with their transaction count,
+  newest first, with search and pages; `GET /admin/stats` counts users, transactions and pending
+  requests, and adds up the volume of completed transactions.
 
 ### Security
 

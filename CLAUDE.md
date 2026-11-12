@@ -94,6 +94,12 @@ with its ticket.
   `getRandomUser`, the test helper, skips admins: the older tests expect a user with contacts.
   Upstream files touched: `backend/user-routes.ts`, `backend/database.ts` (`createUser`),
   `scripts/seedDataUtils.ts`, `src/components/NavDrawer.tsx` (the badge).
+- **Admin API (RWT-2).** `backend/admin-routes.ts`, mounted at `/admin` after the business routes
+  (so the fault switches hit it too). `requireAdmin` answers 403 `{"error":"Forbidden"}`; the
+  router runs `ensureAuthenticated` first (401). Users come back as `AdminUser`
+  (`src/models/admin.ts`): no password hash, plus `transactionCount`. `limit=0` is 422, not the
+  division by zero `/transactions` would do. Upstream file touched: `backend/app.ts` (import and
+  mount line).
 
 Tests: API behavior through `src/__tests__/support/api.ts`, a real HTTP server with sessions
 (`api.as("Heath93")` gives a signed-in client). Component tests run in jsdom from

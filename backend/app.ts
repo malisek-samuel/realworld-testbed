@@ -24,6 +24,7 @@ import bankTransferRoutes from "./banktransfer-routes";
 import testDataRoutes from "./testdata-routes";
 import { mountOps } from "./ops-routes";
 import { mountFaults } from "./fault-routes";
+import adminRoutes from "./admin-routes"; // testbed (RWT-2)
 import { checkAuth0Jwt, verifyOktaToken, checkCognitoJwt, checkGoogleJwt } from "./helpers";
 import resolvers from "./graphql/resolvers";
 import { frontendPort, getBackendPort } from "../src/utils/portUtils";
@@ -120,6 +121,7 @@ app.use("/likes", likeRoutes);
 app.use("/comments", commentRoutes);
 app.use("/notifications", notificationRoutes);
 app.use("/bankTransfers", bankTransferRoutes);
+app.use("/admin", adminRoutes); // testbed (RWT-2): the admin API
 
 app.use(express.static(join(__dirname, "../public")));
 
