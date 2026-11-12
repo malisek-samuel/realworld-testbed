@@ -3,7 +3,7 @@
 |            |               |
 | ---------- | ------------- |
 | Epic       | Admin console |
-| Status     | To do         |
+| Status     | Done          |
 | Depends on | RWT-1         |
 
 ## Why
@@ -29,14 +29,14 @@ admin.
 
 ## Acceptance criteria
 
-- [ ] Both endpoints answer 401 without a session and 403 for a seed user who isn't an admin.
-- [ ] As `admin`, `GET /admin/users` lists every user with the fields above and no `password`.
-- [ ] `limit=2` returns 2 users, and `pageData.totalPages` is the number of users divided by 2,
+- [x] Both endpoints answer 401 without a session and 403 for a seed user who isn't an admin.
+- [x] As `admin`, `GET /admin/users` lists every user with the fields above and no `password`.
+- [x] `limit=2` returns 2 users, and `pageData.totalPages` is the number of users divided by 2,
       rounded up.
-- [ ] `q=bradtke` finds Kristian Bradtke (`Arvilla_Hegmann`); a `q` that matches nobody returns
+- [x] `q=bradtke` finds Kristian Bradtke (`Arvilla_Hegmann`); a `q` that matches nobody returns
       an empty list.
-- [ ] `transactionCount` of a user equals the number of transactions they sent or received.
-- [ ] `GET /admin/stats` numbers match the database, and `volume` counts completed transactions
+- [x] `transactionCount` of a user equals the number of transactions they sent or received.
+- [x] `GET /admin/stats` numbers match the database, and `volume` counts completed transactions
       only.
 
 ## Out of scope

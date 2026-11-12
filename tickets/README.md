@@ -7,7 +7,7 @@ A ticket is closed by the pull request that implements it: the PR sets the ticke
 | ID                                   | Title                            | Epic          | Status |
 | ------------------------------------ | -------------------------------- | ------------- | ------ |
 | [RWT-1](RWT-1-user-roles.md)         | User roles                       | Admin console | Done   |
-| [RWT-2](RWT-2-admin-api.md)          | Admin API: users and statistics  | Admin console | To do  |
+| [RWT-2](RWT-2-admin-api.md)          | Admin API: users and statistics  | Admin console | Done   |
 | [RWT-3](RWT-3-account-suspension.md) | Suspend and reactivate accounts  | Admin console | To do  |
 | [RWT-4](RWT-4-admin-console-ui.md)   | Admin console page               | Admin console | To do  |
 | [RWT-5](RWT-5-split-api.md)          | Split a bill: API                | Split a bill  | To do  |
