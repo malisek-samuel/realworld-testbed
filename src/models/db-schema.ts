@@ -6,6 +6,7 @@ import { Like } from "./like";
 import { BankTransfer } from "./banktransfer";
 import { NotificationType } from "./notification";
 import { Comment } from "./comment";
+import { Split } from "./split"; // testbed (RWT-5)
 
 export interface DbSchema {
   users: User[];
@@ -16,4 +17,5 @@ export interface DbSchema {
   comments: Comment[];
   notifications: NotificationType[];
   banktransfers: BankTransfer[];
+  splits: Split[]; // testbed (RWT-5)
 }

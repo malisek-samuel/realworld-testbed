@@ -3,7 +3,7 @@
 |            |              |
 | ---------- | ------------ |
 | Epic       | Split a bill |
-| Status     | To do        |
+| Status     | Done         |
 | Depends on | RWT-3        |
 
 ## Why
@@ -25,7 +25,7 @@ the amounts. Odd totals don't divide evenly, and it's easy to get the cents wron
 }
 ```
 
-- `total` is in dollars, more than 0, with at most two decimals.
+- `total` is in dollars, more than 0 and at most $1,000,000, with at most two decimals.
 - `includeSelf`: whether the creator pays a share too (their share isn't requested from anyone).
 - **`equal`**: the total is divided into whole cents among everybody who pays. Cents left over go
   one each to the first people in order, the creator first. $100 between three is $33.34 for the
@@ -50,17 +50,17 @@ Splits are a new collection, `splits`, counted by `/health` and `/metrics` and r
 
 ## Acceptance criteria
 
-- [ ] $100 split equally between the creator and two participants: requests of 3333 and 3333
+- [x] $100 split equally between the creator and two participants: requests of 3333 and 3333
       cents, `selfShare` 3334.
-- [ ] $0.05 split equally between five payers: 1 cent each. $0.04 between five: 422.
-- [ ] Custom amounts that add up: created as given. Amounts $0.01 short of the total: 422, no
+- [x] $0.05 split equally between five payers: 1 cent each. $0.04 between five: 422.
+- [x] Custom amounts that add up: created as given. Amounts $0.01 short of the total: 422, no
       transactions created.
-- [ ] Duplicate participant, the creator as a participant, an unknown user, a suspended user, 11
+- [x] Duplicate participant, the creator as a participant, an unknown user, a suspended user, 11
       participants: 422, nothing created.
-- [ ] Each participant gets a pending request with `splitId` and a "requested" notification.
-- [ ] Accepting one request moves it from `outstanding` to `collected` in the summary.
-- [ ] A user outside the split gets 403; an unknown ID 404; no session 401.
-- [ ] Amounts are exact for totals such as 33.33, 0.10 and 1234.56 (no floating-point drift).
+- [x] Each participant gets a pending request with `splitId` and a "requested" notification.
+- [x] Accepting one request moves it from `outstanding` to `collected` in the summary.
+- [x] A user outside the split gets 403; an unknown ID 404; no session 401.
+- [x] Amounts are exact for totals such as 33.33, 0.10 and 1234.56 (no floating-point drift).
 
 ## Out of scope
 

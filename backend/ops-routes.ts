@@ -21,6 +21,7 @@ const COLLECTIONS: (keyof DbSchema)[] = [
   "comments",
   "notifications",
   "banktransfers",
+  "splits", // RWT-5
 ];
 const FAULTS = ["latency", "errors", "leak"];
 

@@ -22,6 +22,11 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - Admin console at `/admin`, in the side menu of admins: statistics, and a table of users with
   search, a status filter and pages, where an admin suspends or reactivates a user after
   confirming. Other users who open the page are told they don't have access.
+- Split a bill, API: `POST /splits` requests money from up to 10 people at once, split equally (to
+  the cent, leftover cents to the first payers, the creator first) or by custom amounts that must
+  add up to the total; you can include your own share or not. Each person gets an ordinary
+  request. `GET /splits/:splitId` shows how much has been collected, is outstanding or was
+  declined, to the creator and the participants.
 
 ### Security
 
