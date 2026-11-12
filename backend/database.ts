@@ -46,6 +46,7 @@ import {
   NotificationResponseItem,
   TransactionQueryPayload,
   DefaultPrivacyLevel,
+  UserRole,
 } from "../src/models";
 import Fuse from "fuse.js";
 import {
@@ -189,6 +190,7 @@ export const createUser = (userDetails: Partial<User>): User => {
     balance: Number(userDetails.balance!) || 0,
     avatar: userDetails.avatar!,
     defaultPrivacyLevel: userDetails.defaultPrivacyLevel!,
+    role: UserRole.user, // testbed (RWT-1)
     createdAt: new Date(),
     modifiedAt: new Date(),
   };

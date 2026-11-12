@@ -6,6 +6,17 @@ image `ghcr.io/malisek-samuel/realworld-testbed:<version>`; the QA repository
 
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [Unreleased]
+
+### Added
+
+- User roles. An account is a user or an admin. The seed data has one admin, `admin` / `admin`,
+  whose side menu shows an Admin badge.
+
+### Security
+
+- Sign-up and profile updates reject a `role`, so users can't make themselves admins.
+
 ## [1.0.0] - 2026-11-12
 
 First testbed release, based on Cypress's Real World App at upstream commit `0729f68`.

@@ -28,6 +28,7 @@ import {
   BankAccount,
   User,
   DefaultPrivacyLevel,
+  UserRole,
   Like,
   Comment,
   PaymentNotification,
@@ -130,6 +131,7 @@ export const createFakeUser = (): User => {
       DefaultPrivacyLevel.contacts,
     ]),
     balance: faker.random.number({ min: 10000, max: 200000 }),
+    role: UserRole.user, // testbed (RWT-1)
     createdAt: faker.date.past(),
     modifiedAt: faker.date.recent(),
   };

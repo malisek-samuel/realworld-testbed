@@ -16,6 +16,7 @@ import {
   Grid,
   Avatar,
   Typography,
+  Chip,
 } from "@mui/material";
 import { Link as RouterLink } from "react-router-dom";
 import {
@@ -27,6 +28,7 @@ import {
 } from "@mui/icons-material";
 
 import { formatAmount } from "../utils/transactionUtils";
+import { isAdmin } from "../utils/roleUtils";
 import { AuthMachineContext, AuthMachineEvents } from "../machines/authMachine";
 
 const PREFIX = "NavDrawer";
@@ -250,6 +252,9 @@ const NavDrawer: React.FC<Props> = ({
               >
                 @{currentUser.username}
               </Typography>
+              {isAdmin(currentUser) && (
+                <Chip label="Admin" size="small" color="primary" data-test="sidenav-admin-badge" />
+              )}
             </>
           )}
         </Grid>
