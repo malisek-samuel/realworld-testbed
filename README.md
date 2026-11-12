@@ -1,11 +1,16 @@
 # realworld-testbed
 
+> **This is not my app.** It is the [Cypress Real World App](https://github.com/cypress-io/cypress-realworld-app),
+> a Venmo-style payments demo written by Cypress.io and published under the MIT license (see
+> [LICENSE](LICENSE)). It is copied here, with its full commit history, so I have a realistic
+> application to test. This repository is not affiliated with or endorsed by Cypress.io. My own
+> changes are only the testability additions listed in [CHANGELOG.md](CHANGELOG.md).
+
 The system under test for **[qa-showcase](https://github.com/malisek-samuel/qa-showcase)**, a video
 series on QA test types: API, E2E, UI, load and stress, long-run and AI-agent changelog testing.
 
-It is Cypress's [Real World App](https://github.com/cypress-io/cypress-realworld-app) (MIT) with
-testability additions — `/health`, Prometheus `/metrics` and fault switches — released as
-versioned test images. What each release changed is in [CHANGELOG.md](CHANGELOG.md).
+The additions are `/health`, Prometheus `/metrics` and fault switches, released as versioned test
+images.
 
 ```bash
 docker run --rm -p 3000:3000 -p 3001:3001 ghcr.io/malisek-samuel/realworld-testbed:1.0.0
