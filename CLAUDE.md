@@ -97,9 +97,8 @@ with its ticket.
 - **Admin API (RWT-2).** `backend/admin-routes.ts`, mounted at `/admin` after the business routes
   (so the fault switches hit it too). `requireAdmin` answers 403 `{"error":"Forbidden"}`; the
   router runs `ensureAuthenticated` first (401). Users come back as `AdminUser`
-  (`src/models/admin.ts`): no password hash, plus `transactionCount`. `limit=0` is 422, not the
-  division by zero `/transactions` would do. Upstream file touched: `backend/app.ts` (import and
-  mount line).
+  (`src/models/admin.ts`): no password hash, plus `transactionCount`. `limit` must be at least 1.
+  Upstream file touched: `backend/app.ts` (import and mount line).
 - **Suspension (RWT-3).** `User.status` is `active` or `suspended` (absent counts as active;
   `isSuspended` in `src/utils/roleUtils.ts`). `PATCH /admin/users/:userId` accepts `{status}` and
   nothing else. Enforced in four places: `backend/auth.ts` (sign-in refused; `deserializeUser`
@@ -121,6 +120,19 @@ Tests: API behavior through `src/__tests__/support/api.ts`, a real HTTP server w
 `yarn types` doesn't reach them, as it doesn't reach most components (the tsconfig gets to
 components only through Cypress component tests), so new frontend files get a separate `tsc`
 run with a throwaway tsconfig that extends the main one and includes them.
+
+### Split a bill (RWT-5 to RWT-7, unreleased)
+
+- **API (RWT-5).** `backend/split-routes.ts` at `/splits`. The arithmetic is in
+  `src/utils/splitUtils.ts` (`planSplit`), shared with the form so the preview equals the
+  requests; it reads dollars from their digits (`toCents`), never `amount * 100`. A split is a
+  record in the new `splits` collection (`src/models/split.ts`) plus one ordinary request
+  transaction per participant carrying `splitId`; accepting and declining go through upstream
+  `PATCH /transactions/:id`. `database.ts` creates the collection when a database file lacks it
+  (`ensureSplits`); both seed files have `"splits": []`; `/health`, `/metrics` and
+  `/testData/splits` include it. Upstream files touched: `backend/app.ts`,
+  `backend/database.ts`, `backend/validators.ts`, `src/models/db-schema.ts`,
+  `src/models/transaction.ts` (`splitId`), `scripts/seedDataUtils.ts`, both seed files.
 
 ## Decisions
 

@@ -113,6 +113,7 @@ export const isValidEntityValidator = [
       "likes",
       "comments",
       "banktransfers",
+      "splits", // testbed (RWT-5)
     ])
     .trim(),
 ];

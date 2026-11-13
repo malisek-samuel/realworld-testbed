@@ -26,6 +26,7 @@ export interface Transaction {
   status: TransactionStatus;
   requestStatus?: TransactionRequestStatus | string;
   requestResolvedAt?: Date | string;
+  splitId?: string; // testbed (RWT-5): set on the requests of a split
   createdAt: Date;
   modifiedAt: Date;
 }

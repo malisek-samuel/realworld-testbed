@@ -68,6 +68,7 @@ import {
 } from "../src/utils/transactionUtils";
 import { DbSchema } from "../src/models/db-schema";
 import { isAdmin } from "../src/utils/roleUtils"; // testbed (RWT-1)
+import { Split, SplitMode } from "../src/models/split"; // testbed (RWT-5)
 
 export type TDatabase = {
   users: User[];
@@ -78,6 +79,7 @@ export type TDatabase = {
   comments: Comment[];
   notifications: NotificationType[];
   banktransfers: BankTransfer[];
+  splits: Split[]; // testbed (RWT-5)
 };
 
 const USER_TABLE = "users";
@@ -88,11 +90,16 @@ const LIKE_TABLE = "likes";
 const COMMENT_TABLE = "comments";
 const NOTIFICATION_TABLE = "notifications";
 const BANK_TRANSFER_TABLE = "banktransfers";
+const SPLIT_TABLE = "splits"; // testbed (RWT-5)
 
 export const databaseFile = path.join(__dirname, "../data/database.json");
 const adapter = new FileSync<DbSchema>(databaseFile);
 
 const db = low(adapter);
+
+// testbed (RWT-5): a database file from before splits has no "splits" collection
+const ensureSplits = () => db.defaults({ [SPLIT_TABLE]: [] }).write();
+ensureSplits();
 
 export const seedDatabase = () => {
   const testSeed = JSON.parse(
@@ -101,6 +108,7 @@ export const seedDatabase = () => {
 
   // seed database with test data
   db.setState(testSeed).write();
+  ensureSplits(); // testbed (RWT-5)
   return;
 };
 
@@ -600,6 +608,62 @@ export const updateTransactionById = (transactionId: string, edits: Partial<Tran
   }
 
   db.get(TRANSACTION_TABLE).find(transaction).assign(edits).write();
+};
+
+// Splits (testbed, RWT-5): a record per split; its requests are ordinary request transactions
+// that carry the split's ID, so accepting or declining one works as for any request.
+
+export const getSplitById = (id: string): Split | undefined => getBy(SPLIT_TABLE, "id", id);
+
+export const createSplit = (
+  creatorId: User["id"],
+  details: {
+    description: string;
+    mode: SplitMode;
+    total: number;
+    selfShare: number;
+    shares: { userId: User["id"]; amount: number }[];
+  }
+): Split => {
+  const creator = getUserById(creatorId);
+  const splitId = shortid();
+  const now = new Date();
+
+  const transactions = details.shares.map(({ userId, amount }) => {
+    const transaction: Transaction = {
+      id: shortid(),
+      uuid: v4(),
+      source: "",
+      amount,
+      description: details.description,
+      receiverId: userId,
+      senderId: creatorId,
+      privacyLevel: creator.defaultPrivacyLevel,
+      status: TransactionStatus.pending,
+      requestStatus: TransactionRequestStatus.pending,
+      splitId,
+      createdAt: now,
+      modifiedAt: now,
+    };
+    saveTransaction(transaction);
+    createPaymentNotification(userId, transaction.id, PaymentNotificationStatus.requested);
+    return transaction;
+  });
+
+  const split: Split = {
+    id: splitId,
+    uuid: v4(),
+    creatorId,
+    description: details.description,
+    mode: details.mode,
+    total: details.total,
+    selfShare: details.selfShare,
+    transactionIds: transactions.map((transaction) => transaction.id),
+    createdAt: now,
+    modifiedAt: now,
+  };
+  db.get(SPLIT_TABLE).push(split).write();
+  return split;
 };
 
 // Likes
