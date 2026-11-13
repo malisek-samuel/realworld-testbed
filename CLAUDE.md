@@ -138,6 +138,15 @@ run with a throwaway tsconfig that extends the main one and includes them.
   messages (`split-not-found`, `split-no-access`). Rows are `split-participant-<userId>`. Upstream
   files touched: `src/containers/PrivateRoutesContainer.tsx`, `src/components/TransactionDetail.tsx`
   (the "Part of a split" link, shown only to the two people in the request).
+- **Creating a split (RWT-7).** `src/containers/SplitCreateContainer.tsx` at `/splits/new` (routed
+  before `/splits/:splitId`) with `src/components/SplitCreateForm.tsx`. People come from
+  `GET /users` and `/users/search` (`fetchPeople` in `src/utils/splitApi.ts`), which already leave
+  out the signed-in user and suspended accounts. Selectors: `split-create-...`
+  (`split-create-person-<username>`, `split-create-amount-<username>`, `split-create-submit`, …).
+  Upstream files touched: `src/components/NavBar.tsx` (the Split button),
+  `src/containers/PrivateRoutesContainer.tsx`.
+- `component={RouterLink}` doesn't type-check anywhere in the app: `@types/react-router-dom`
+  brings its own `@types/react`. Our new links cast it (`RouterLink as any`) with a comment.
 
 ## Decisions
 
