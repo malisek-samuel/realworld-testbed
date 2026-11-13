@@ -29,6 +29,7 @@ import {
   User,
   DefaultPrivacyLevel,
   UserRole,
+  UserStatus,
   Like,
   Comment,
   PaymentNotification,
@@ -132,6 +133,7 @@ export const createFakeUser = (): User => {
     ]),
     balance: faker.random.number({ min: 10000, max: 200000 }),
     role: UserRole.user, // testbed (RWT-1)
+    status: UserStatus.active, // testbed (RWT-3)
     createdAt: faker.date.past(),
     modifiedAt: faker.date.recent(),
   };

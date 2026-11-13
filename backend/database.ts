@@ -47,6 +47,7 @@ import {
   TransactionQueryPayload,
   DefaultPrivacyLevel,
   UserRole,
+  UserStatus,
 } from "../src/models";
 import Fuse from "fuse.js";
 import {
@@ -192,6 +193,7 @@ export const createUser = (userDetails: Partial<User>): User => {
     avatar: userDetails.avatar!,
     defaultPrivacyLevel: userDetails.defaultPrivacyLevel!,
     role: UserRole.user, // testbed (RWT-1)
+    status: UserStatus.active, // testbed (RWT-3)
     createdAt: new Date(),
     modifiedAt: new Date(),
   };

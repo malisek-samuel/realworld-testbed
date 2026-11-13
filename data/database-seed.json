@@ -12,6 +12,7 @@
       "avatar": "https://api.dicebear.com/9.x/pixel-art/svg?seed=Ted",
       "defaultPrivacyLevel": "public",
       "role": "user",
+      "status": "active",
       "balance": 150953,
       "createdAt": "2023-03-09T22:26:40.101Z",
       "modifiedAt": "2024-03-07T10:07:57.580Z"
@@ -28,6 +29,7 @@
       "avatar": "https://api.dicebear.com/9.x/pixel-art/svg?seed=Kristian",
       "defaultPrivacyLevel": "private",
       "role": "user",
+      "status": "active",
       "balance": 93026,
       "createdAt": "2023-04-23T13:52:10.979Z",
       "modifiedAt": "2024-03-07T09:07:46.709Z"
@@ -44,6 +46,7 @@
       "avatar": "https://api.dicebear.com/9.x/pixel-art/svg?seed=Darrel",
       "defaultPrivacyLevel": "contacts",
       "role": "user",
+      "status": "active",
       "balance": 158880,
       "createdAt": "2023-05-21T05:01:54.594Z",
       "modifiedAt": "2024-03-07T14:11:52.161Z"
@@ -60,6 +63,7 @@
       "avatar": "https://api.dicebear.com/9.x/pixel-art/svg?seed=Ruthie",
       "defaultPrivacyLevel": "private",
       "role": "user",
+      "status": "active",
       "balance": 117683,
       "createdAt": "2024-02-08T11:33:03.159Z",
       "modifiedAt": "2024-03-07T16:44:43.874Z"
@@ -76,6 +80,7 @@
       "avatar": "https://api.dicebear.com/9.x/pixel-art/svg?seed=Lia",
       "defaultPrivacyLevel": "public",
       "role": "user",
+      "status": "active",
       "balance": 49474,
       "createdAt": "2023-12-07T04:39:38.383Z",
       "modifiedAt": "2024-03-07T00:07:36.510Z"
@@ -92,6 +97,7 @@
       "avatar": "https://api.dicebear.com/9.x/pixel-art/svg?seed=admin",
       "defaultPrivacyLevel": "private",
       "role": "admin",
+      "status": "active",
       "balance": 0,
       "createdAt": "2023-01-02T09:00:00.000Z",
       "modifiedAt": "2023-01-02T09:00:00.000Z"

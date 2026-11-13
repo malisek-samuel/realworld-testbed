@@ -9,6 +9,11 @@ export enum UserRole {
   admin = "admin",
 }
 
+export enum UserStatus {
+  active = "active",
+  suspended = "suspended",
+}
+
 export interface User {
   id: string;
   uuid: string;
@@ -22,6 +27,7 @@ export interface User {
   avatar: string;
   defaultPrivacyLevel: DefaultPrivacyLevel;
   role?: UserRole; // testbed (RWT-1): absent on records from before roles, which count as "user"
+  status?: UserStatus; // testbed (RWT-3): absent counts as "active"
   createdAt: Date;
   modifiedAt: Date;
 }
