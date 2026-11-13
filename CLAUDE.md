@@ -133,6 +133,11 @@ run with a throwaway tsconfig that extends the main one and includes them.
   `/testData/splits` include it. Upstream files touched: `backend/app.ts`,
   `backend/database.ts`, `backend/validators.ts`, `src/models/db-schema.ts`,
   `src/models/transaction.ts` (`splitId`), `scripts/seedDataUtils.ts`, both seed files.
+- **Split page (RWT-6).** `src/containers/SplitDetailContainer.tsx` at `/splits/:splitId` with
+  `src/components/SplitSummary.tsx`; API calls in `src/utils/splitApi.ts`. 404 and 403 become
+  messages (`split-not-found`, `split-no-access`). Rows are `split-participant-<userId>`. Upstream
+  files touched: `src/containers/PrivateRoutesContainer.tsx`, `src/components/TransactionDetail.tsx`
+  (the "Part of a split" link, shown only to the two people in the request).
 
 ## Decisions
 
