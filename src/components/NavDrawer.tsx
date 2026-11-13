@@ -25,6 +25,7 @@ import {
   ExitToApp as LogoutIcon,
   Notifications as NotificationsIcon,
   AccountBalance as AccountBalanceIcon,
+  AdminPanelSettings as AdminIcon,
 } from "@mui/icons-material";
 
 import { formatAmount } from "../utils/transactionUtils";
@@ -116,7 +117,8 @@ const drawerWidth = 240;
 
 export const mainListItems = (
   toggleDrawer: ((event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => void) | undefined,
-  showTemporaryDrawer: Boolean
+  showTemporaryDrawer: Boolean,
+  showAdmin: Boolean = false // testbed (RWT-4)
 ) => (
   <div>
     <ListItem
@@ -171,6 +173,21 @@ export const mainListItems = (
       </ListItemIcon>
       <ListItemText primary="Notifications" />
     </ListItem>
+    {showAdmin && (
+      <ListItem
+        button
+        // @ts-ignore
+        onClick={() => showTemporaryDrawer && toggleDrawer()}
+        component={RouterLink}
+        to="/admin"
+        data-test="sidenav-admin"
+      >
+        <ListItemIcon>
+          <AdminIcon />
+        </ListItemIcon>
+        <ListItemText primary="Admin" />
+      </ListItem>
+    )}
   </div>
 );
 
@@ -288,7 +305,7 @@ const NavDrawer: React.FC<Props> = ({
           <Divider />
         </Grid>
         <Grid item>
-          <List>{mainListItems(toggleDrawer, showTemporaryDrawer)}</List>
+          <List>{mainListItems(toggleDrawer, showTemporaryDrawer, isAdmin(currentUser))}</List>
         </Grid>
         <Grid item>
           <Divider />

@@ -20,6 +20,7 @@ import { AuthMachineContext, AuthMachineEvents, AuthMachineSchema } from "../mac
 import { SnackbarContext, SnackbarSchema, SnackbarEvents } from "../machines/snackbarMachine";
 import { useActor } from "@xstate/react";
 import UserOnboardingContainer from "./UserOnboardingContainer";
+import AdminContainer from "./AdminContainer"; // testbed (RWT-4)
 
 export interface Props {
   isLoggedIn: boolean;
@@ -90,6 +91,10 @@ const PrivateRoutesContainer: React.FC<Props> = ({
         </PrivateRoute>
         <PrivateRoute isLoggedIn={isLoggedIn} exact path="/transaction/:transactionId">
           <TransactionDetailContainer authService={authService} />
+        </PrivateRoute>
+        {/* testbed (RWT-4): the admin console; non-admins get a no-access message */}
+        <PrivateRoute isLoggedIn={isLoggedIn} exact path="/admin">
+          <AdminContainer authService={authService} snackbarService={snackbarService} />
         </PrivateRoute>
       </Switch>
     </MainLayout>
