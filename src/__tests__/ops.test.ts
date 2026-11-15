@@ -67,6 +67,7 @@ beforeEach(() => {
 afterEach(() => {
   resetFaults();
   vi.restoreAllMocks();
+  vi.unstubAllEnvs();
 });
 
 describe("GET /health", () => {
@@ -80,6 +81,14 @@ describe("GET /health", () => {
     expect(body.database.records.users).toBe(getAllForEntity("users").length);
     expect(body.database.fileBytes).toBeGreaterThan(0);
     expect(body.faults).toEqual({ active: [], leakedBytes: 0 });
+  });
+
+  it("names the release it was built for, and dev for any other build", async () => {
+    vi.stubEnv("APP_VERSION", "");
+    expect((await (await fetch(`${base}/health`)).json()).version).toBe("dev");
+
+    vi.stubEnv("APP_VERSION", "1.2.3");
+    expect((await (await fetch(`${base}/health`)).json()).version).toBe("1.2.3");
   });
 
   it("fails with 503 when the database file can't be read", async () => {

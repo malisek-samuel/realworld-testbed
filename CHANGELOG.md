@@ -34,6 +34,8 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
   enter the total and choose an equal or custom split, with or without your own share. It
   previews every share exactly as it will be requested, shows how much is left to assign, and
   opens the split's page once the requests are sent.
+- `GET /health` names the release: `version` is the image's version (`1.1.0`), or `dev` for a
+  build that isn't a release.
 
 ### Security
 

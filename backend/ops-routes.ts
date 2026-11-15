@@ -94,6 +94,10 @@ export const requestMetrics = (req: Request, res: Response, next: NextFunction) 
   next();
 };
 
+// The release this build is (RWT-8): the image's APP_VERSION, set by the release workflow from the
+// tag; "dev" for any other build, so a test pinned to a release can tell it isn't running one.
+export const appVersion = () => process.env.APP_VERSION || "dev";
+
 // "fail" only when the app can't serve its data. Fault switches are reported, not failed on:
 // a monitor has to catch their symptoms itself.
 export const healthReport = () => {
@@ -107,6 +111,7 @@ export const healthReport = () => {
   const memory = process.memoryUsage();
   return {
     status: database.status,
+    version: appVersion(),
     uptimeSeconds: Math.round(process.uptime()),
     database,
     memory: { rssBytes: memory.rss, heapUsedBytes: memory.heapUsed },
