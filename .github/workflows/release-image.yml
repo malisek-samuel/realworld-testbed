@@ -1,7 +1,7 @@
 name: Release image
 
 # A version tag (v1.2.0) publishes ghcr.io/<owner>/realworld-testbed:1.2.0 — the release the QA repo
-# (qa-showcase) pins in its APP_VERSION file.
+# (qa-showcase) pins in its docker-compose.yml. The image reports its version in GET /health.
 on:
   push:
     tags: ["v*"]
@@ -34,3 +34,4 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+          build-args: APP_VERSION=${{ steps.meta.outputs.version }}

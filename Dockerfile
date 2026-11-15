@@ -17,6 +17,12 @@ RUN yarn install --frozen-lockfile --network-timeout 600000 && yarn cache clean
 COPY --chown=node:node . .
 RUN yarn build:testbed
 
+# The release this image is (GET /health → version): the release workflow passes the tag's version.
+ARG APP_VERSION=dev
+# A RUN that uses the ARG: Podman's layer cache tells versions apart only then (ENV alone isn't enough).
+RUN echo "Version: $APP_VERSION"
+ENV APP_VERSION=$APP_VERSION
+
 EXPOSE 3000 3001
 HEALTHCHECK --interval=10s --timeout=3s --start-period=90s --retries=3 \
   CMD node -e "fetch('http://127.0.0.1:3001/health').then(r => process.exit(r.ok ? 0 : 1), () => process.exit(1))"

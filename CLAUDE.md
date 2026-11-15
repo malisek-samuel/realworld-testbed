@@ -19,6 +19,7 @@ yarn build:testbed     # build the frontend into build/
 yarn start:testbed     # as the test image runs it: reseeds, serves build/ on :3000, API on :3001 in NODE_ENV=test
 yarn test:unit:ci      # Vitest, ~10 s (needs src/aws-exports.js: `yarn predev:cognito:ci` once)
 yarn types             # tsc --noEmit
+# /health reports version dev; --build-arg APP_VERSION=X.Y.Z builds a release's image
 docker build -t realworld-testbed . && docker run --rm -p 3000:3000 -p 3001:3001 realworld-testbed
 ```
 
@@ -30,7 +31,7 @@ Seed users: any `username` in `data/database-seed.json`, password `s3cret`. The 
 
 1. Add the change under a new version in `CHANGELOG.md` (Keep a Changelog), written as a product changelog: what changed for a user of the app.
 2. Commit, tag `vX.Y.Z`, push the tag: `.github/workflows/release-image.yml` publishes `ghcr.io/malisek-samuel/realworld-testbed:X.Y.Z` (and `latest`).
-3. In qa-showcase, bump `APP_VERSION`.
+3. In qa-showcase, bump the image tag in `docker-compose.yml`. Its session refuses an app whose `/health` `version` isn't that release.
 
 **Planted bugs** are never named anywhere the agents can read — not in a commit message, the changelog, a code comment or a file name. The answer key stays outside both repositories (local file or private gist) until its episode is published.
 
@@ -44,7 +45,7 @@ Everything here is ours; the rest is upstream. Upstream files carry only these e
 
 `backend/ops-routes.ts` and `backend/fault-routes.ts`, tests in `src/__tests__/ops.test.ts` (11 tests; each was seen to fail on the code broken the way it guards against, 2026-11-12: raw paths as route labels, `/health` or `/testData` not exempt, switches on in production, the leak ignoring its cap or not released, `/health` hiding a database failure, validation skipping the ranges, injected faults not counted).
 
-**`GET /health`** — always mounted, no login. Returns 200 with `status: "ok"`, `uptimeSeconds`, `database` (`fileBytes`, `records` per collection), `memory` (`rssBytes`, `heapUsedBytes`) and `faults` (`active`, `leakedBytes`); 503 with `status: "fail"` and the reason when the database can't be read. Fault switches are _reported_, never failed on: a monitor has to catch their symptoms itself. Cheap enough to poll every second: the data is counted in memory and the file only stat'ed.
+**`GET /health`** — always mounted, no login. Returns 200 with `status: "ok"`, `version` (since RWT-8: the image's `APP_VERSION`, which the release workflow sets from the tag; `dev` for any other build — 1.0.0 predates it and reports none), `uptimeSeconds`, `database` (`fileBytes`, `records` per collection), `memory` (`rssBytes`, `heapUsedBytes`) and `faults` (`active`, `leakedBytes`); 503 with `status: "fail"` and the reason when the database can't be read. Fault switches are _reported_, never failed on: a monitor has to catch their symptoms itself. Cheap enough to poll every second: the data is counted in memory and the file only stat'ed.
 
 **`GET /metrics`** — Prometheus text format, always mounted, no login:
 
